@@ -16,7 +16,7 @@ export const requestPhotosError = () => {
 export const fetchPhotos = () => {
     return (dispatch) => {
         dispatch(requestPhotos());
-        fetch(`https://api.unsplash.com/photos/?client_id=${CLIENT_ID}&per_page=50`)
+        fetch(`https://api.unsplash.com/photos/?client_id=${CLIENT_ID}&per_page=10`)
             .then(res => res.json())
             .then(
                 data => {

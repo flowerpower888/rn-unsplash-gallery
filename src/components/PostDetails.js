@@ -6,18 +6,18 @@ import { Photo } from './Photo';
 import { UserInfo } from './UserInfo';
 
 
-export const PostDetails = ({ username, imageUrl, profileImageUrl, date, description }) => {
+export const PostDetails = ({ post }) => {
     const window = useWindowDimensions();
     return (
         <ScrollView>
             <View style={styles.post}>
-                <UserInfo profileImageUrl={profileImageUrl} username={username} />
+                <UserInfo profileImageUrl={post.profileImageUrl} username={post.username} />
                 <Photo
-                    imageUrl={imageUrl}
+                    imageUrl={post.imageUrls.regular}
                     containerHeight={window.height}
                     imageHeight={"100%"}
                 />
-                <Description description={description} date={date} />
+                <Description description={post.description} date={post.date} />
             </View>
         </ScrollView>
     )
@@ -25,7 +25,6 @@ export const PostDetails = ({ username, imageUrl, profileImageUrl, date, descrip
 
 const styles = StyleSheet.create({
     post: {
-        height: window.height,
-        flexDirection: 'column',
+        flexDirection: 'column'
     }
 })

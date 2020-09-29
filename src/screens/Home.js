@@ -6,29 +6,34 @@ import { THEME } from './../theme';
 import { Post } from './../components/Post';
 import { AppLoader } from '../components/AppLoader';
 
-export const Home = (props) => {
+export const Home = ({ navigation }) => {
     const loading = useSelector(state => state.photos.loading)
     const error = useSelector(state => state.photos.error)
     const data = useSelector(state => state.photos.data)
     const dispatch = useDispatch()
 
-    const { navigation } = props
+    const renderItem = ({ item, index }) => {
+        const post = {
+            username: item.user.username,
+            profileImageUrl: item.user.profile_image.small,
+            imageUrls: {
+                small: item.urls.small,
+                regular: item.urls.regular
+            },
+            date: new Date(item.created_at).toISOString(),
+            description: item.alt_description
+        }
+        return (
+            <TouchableOpacity
+                style={{ paddingTop: index === 0 ? 30 : 0, paddingBottom: 30 }}
+                onPress={() => navigation.navigate('Details', { post })}
+                key={item.key}
+            >
+                <Post post={post} />
+            </TouchableOpacity>
+        )
+    }
 
-    const renderItem = ({ item }) => (
-        <TouchableOpacity
-            style={{ paddingBottom: 30 }}
-            onPress={() => navigation.navigate('Details', { item })}
-            key={item.key}
-        >
-            <Post
-                username={item.user.username}
-                profileImageUrl={item.user.profile_image.small}
-                imageUrl={item.urls.small}
-                date={new Date(item.created_at)}
-                description={item.alt_description}
-            />
-        </TouchableOpacity>
-    )
     useEffect(() => {
         dispatch(actions.fetchPhotos())
     }, [])
@@ -64,11 +69,6 @@ const styles = StyleSheet.create({
         backgroundColor: THEME.MAIN_COLOR
     },
     wrapper: {
-        paddingTop: 30,
         width: 250,
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: THEME.MAIN_COLOR
     }
 })

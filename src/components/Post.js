@@ -5,12 +5,12 @@ import { Photo } from './Photo';
 import { UserInfo } from './UserInfo';
 
 
-export const Post = ({ username, imageUrl, profileImageUrl, date, description }) => {
+export const Post = ({ post }) => {
     return (
             <View style={styles.post}>
-                <UserInfo profileImageUrl={profileImageUrl} username={username} />
-                <Photo imageUrl={imageUrl} imageWidth={250} imageHeight={250} />
-                <Description description={description} date={date} />
+                <UserInfo profileImageUrl={post.profileImageUrl} username={post.username} />
+                <Photo imageUrl={post.imageUrls.small} imageHeight={250} />
+                <Description description={post.description} date={post.date} />
             </View>
     )
 }

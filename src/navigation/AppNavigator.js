@@ -34,7 +34,7 @@ function AppNavigator() {
                     name='Details'
                     component={Details}
                     options={({ route }) => ({
-                        item: route.params.item
+                        post: route.params.post
                     })}
                 />
             </Stack.Navigator>
